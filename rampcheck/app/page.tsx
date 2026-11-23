@@ -758,39 +758,40 @@ export default function Home() {
       </main>
 
       <footer className="site-footer" id="resources">
-        <div className="footer-main">
-          <div className="footer-brand">
-            <a className="wordmark" href="#top">
-              <span className="footer-mark"><BrandMark /></span>
-              <span>Rampcheck</span>
-            </a>
-            <p>Pre-training intelligence for robot learning.<br />Know what your data will do before you train on it.</p>
+        <a className="wordmark footer-wordmark" href="#top">
+          <BrandMark />
+          <span>Rampcheck</span>
+        </a>
+        <div className="footer-directory">
+          <div>
+            <h2>Product</h2>
+            <a href="#cli">Free CLI<small>Local dataset checks</small></a>
+            <a href="#waitlist">Lift Predictor<small>Technical research preview</small></a>
+            <a href="#security">Integration pilot<small>Explore a deeper deployment</small></a>
           </div>
-          <div className="footer-column">
-            <h2>PRODUCT</h2>
-            <a href="#product">Lift prediction</a>
-            <a href="#product">Trajectory cleaning</a>
-            <a href="#product">Synthetic motion</a>
-            <a href="#product">Audit logs</a>
+          <div>
+            <h2>Resources</h2>
+            <a href="#resources">Documentation</a>
+            <a href="#approach">Approach</a>
+            <a href="#security">Security</a>
           </div>
-          <div className="footer-column">
-            <h2>RESOURCES</h2>
-            <a href="#how-it-works">Documentation</a>
-            <a href="#benchmarks">Benchmarks</a>
-            <a href="#how-it-works">Diagnostic CLI</a>
-            <a href="#benchmarks">Changelog</a>
+          <div>
+            <h2>Robotics data</h2>
+            <a href="#product">Demonstrations</a>
+            <a href="#product">Joint trajectories</a>
+            <a href="#product">Sensor recordings</a>
           </div>
-          <div className="footer-column">
-            <h2>COMPANY</h2>
-            <a href="#top">About</a>
-            <a href="#waitlist">Contact</a>
-            <a href="#resources">Privacy</a>
-            <a href="#resources">Terms</a>
+          <div>
+            <h2>Get started</h2>
+            <a href="#cli">Explore free CLI</a>
+            <a href="#waitlist">Book technical preview</a>
+            <a href="#security">Discuss an integration pilot</a>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Rampcheck. All rights reserved.</span>
-          <span>ZERO EGRESS · VPC-NATIVE · LEROBOT + MCAP</span>
+          <span>© 2026 Rampcheck</span>
+          <span>Built for robotics engineers</span>
+          <span>Local data diagnostics · Research pilots</span>
         </div>
       </footer>
     </>
