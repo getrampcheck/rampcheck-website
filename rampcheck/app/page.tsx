@@ -95,7 +95,7 @@ function EditorialSections() {
             <li className="is-active"><b>03</b><strong>Triage</strong><span>Flag candidates</span></li>
             <li className="is-light"><b>04</b><strong>Output</strong><span>review.json</span></li>
           </ol>
-          <p className="panel-foot"><span>System output</span> Engineer reviews exceptions, not every recording.</p>
+          <p className="panel-foot">Engineer reviews exceptions, not every recording.</p>
         </figure>
       </section>
 
@@ -122,7 +122,7 @@ function EditorialSections() {
           <a className="button button-dark ed-cta" href="#preview">Book a technical preview <CalendarIcon /></a>
         </div>
         <figure className="ed-panel lift-panel">
-          <figcaption>Lift by intervention · concept model</figcaption>
+          <figcaption>Lift by intervention</figcaption>
           <ul className="lift-ranges">
             <li>
               <span>Trajectory repair</span>
@@ -144,10 +144,11 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band tone-mint" id="cli-entry">
+      <section className="ed-band tone-mint flip" id="cli-entry">
         <div className="ed-copy">
           <h2>From one command to a review artifact.</h2>
           <p>Run rampcheck scan ./dataset locally. The CLI checks supported episode structures and available signals, then writes ./rampcheck/review.json for engineer review. No automatic deletion.</p>
+          <span className="copy-rule" aria-hidden="true" />
           <a className="button button-dark ed-cta" href="#cli">Explore the free CLI <TerminalIcon /></a>
         </div>
         <ScanTranscript compact />
@@ -157,6 +158,7 @@ function EditorialSections() {
         <div className="ed-copy">
           <h2>Keep your stack. Keep control of your data.</h2>
           <p>Keep robot data within your environment while running available checks locally. Export review.json when you choose; SDK, API, and VPC integrations are future pilot paths.</p>
+          <span className="copy-rule" aria-hidden="true" />
           <a className="button button-light ed-cta" href="#preview">Discuss an integration pilot <ArrowIcon /></a>
         </div>
         <figure className="stack-panel">
