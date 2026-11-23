@@ -107,7 +107,7 @@ describe("Navigation & links", () => {
   });
   it("header CTA links have discernible text", () => {
     renderPage();
-    const ctaLinks = screen.getAllByRole("link", { name: /join the waitlist/i });
+    const ctaLinks = screen.getAllByRole("link", { name: /book a technical preview/i });
     expect(ctaLinks.length).toBeGreaterThanOrEqual(1);
   });
   it("brand wordmark link has aria-label", () => {
@@ -116,19 +116,11 @@ describe("Navigation & links", () => {
   });
 });
 
-describe("Waitlist form", () => {
-  it("form has an accessible name", () => { renderPage(); expect(screen.getByRole("form")).toHaveAttribute("aria-label"); });
-  it("all text inputs have associated labels", () => {
+describe("Landing actions", () => {
+  it("offers the free CLI and a technical preview", () => {
     renderPage();
-    document.querySelectorAll("input:not([type='radio'])").forEach((input) => {
-      const id = input.getAttribute("id");
-      if (id) expect(document.querySelector(`label[for="${id}"]`)).not.toBeNull();
-      else expect(input.closest("label")).not.toBeNull();
-    });
-  });
-  it("submit button has discernible text", () => {
-    renderPage();
-    expect(screen.getByRole("button", { name: /request access/i })).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /explore the free cli/i }).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole("link", { name: /book a technical preview/i }).length).toBeGreaterThanOrEqual(1);
   });
 });
 
@@ -136,8 +128,8 @@ describe("CSS — font-size & colour tokens", () => {
   const cssPath = path.join(__dirname, "../app/globals.css");
   const getCSS = () => fs.readFileSync(cssPath, "utf-8");
 
-  it("--foreground CSS var is defined", () => { expect(getCSS()).toMatch(/--foreground:\s*#0b120e/); });
-  it("--background CSS var is defined", () => { expect(getCSS()).toMatch(/--background:\s*#f5f6f5/); });
+  it("--foreground CSS var is defined", () => { expect(getCSS()).toMatch(/--foreground:\s*#111815/); });
+  it("--background CSS var is defined", () => { expect(getCSS()).toMatch(/--background:\s*#fcfcfb/); });
   it("body base font-size is >= 16px", () => {
     const css = getCSS();
     const bodyBlock = css.match(/body\s*\{([^}]+)\}/)![1];
