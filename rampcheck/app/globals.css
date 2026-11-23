@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f6f4;
-  --foreground: #111815;
-  --muted: #59635e;
-  --line: #dce2de;
+  --background: #f5f6f5;
+  --foreground: #0b120e;
+  --muted: #47564d;
+  --muted-light: #7e8d84;
+  --line: #e1e7e3;
   --green: #159d7a;
-  --deep-green: #0c1712;
+  --deep-green: #0b120e;
   --panel: #ffffff;
 }
 
@@ -31,7 +32,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -91,7 +92,7 @@ input {
 .main-nav a,
 .footer-column a {
   color: #47514b;
-  font-size: 12px;
+  font-size: 14px;
   transition: color 150ms ease;
 }
 
@@ -102,13 +103,13 @@ input {
 
 .button {
   display: inline-flex;
-  min-height: 42px;
-  padding: 0 18px;
+  min-height: 44px;
+  padding: 0 20px;
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   transition: background-color 150ms ease, transform 150ms ease;
 }
@@ -137,9 +138,9 @@ input {
 }
 
 .header-cta {
-  min-height: 36px;
-  padding: 0 15px;
-  font-size: 11px;
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
 }
 
 .hero {
@@ -161,7 +162,7 @@ input {
   margin: 0 0 14px;
   color: #84918a;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.11em;
 }
@@ -179,7 +180,7 @@ input {
 
 .hero h1 {
   margin: 0;
-  font-size: clamp(38px, 5.2vw, 64px);
+  font-size: clamp(40px, 5.2vw, 64px);
   font-weight: 650;
   letter-spacing: -0.065em;
   line-height: 1.04;
@@ -189,7 +190,7 @@ input {
   max-width: 650px;
   margin: 24px auto 0;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.65;
 }
 
@@ -204,7 +205,7 @@ input {
   margin: 18px 0 0;
   color: #929c96;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 0.09em;
 }
 
@@ -249,7 +250,7 @@ input {
 .preview-command {
   color: #55615a;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .status-pill,
@@ -264,7 +265,7 @@ input {
   background: #fff;
   color: #66746b;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -312,7 +313,7 @@ input {
   margin: 0;
   color: #8a958e;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.035em;
 }
 
@@ -326,14 +327,14 @@ input {
 
 .chart-score span {
   color: #86928b;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .chart-legend {
   display: flex;
   gap: 16px;
   margin-top: 20px;
-  font-size: 7px;
+  font-size: 11px;
 }
 
 .legend-predicted::before,
@@ -350,46 +351,23 @@ input {
   background: var(--green);
 }
 
+.forecast-chart-wrap {
+  margin-top: 4px;
+}
+
 .forecast-chart {
   display: block;
   width: 100%;
   height: 180px;
-  margin-top: 4px;
   overflow: visible;
-}
-
-.chart-grid path {
-  stroke: #edf0ee;
-  stroke-width: 1;
-}
-
-.chart-predicted path,
-.chart-realized path {
-  fill: none;
-  stroke: #269ee7;
-  stroke-linecap: round;
-  stroke-width: 2.2;
-}
-
-.chart-realized path {
-  stroke: var(--green);
-}
-
-.chart-points path {
-  stroke: #269ee7;
-  stroke-linecap: round;
-  stroke-width: 2;
-}
-
-.realized-points path {
-  stroke: var(--green);
 }
 
 .chart-axis {
   display: flex;
   justify-content: space-between;
-  margin-top: 3px;
-  font-size: 7px;
+  margin-top: 8px;
+  padding: 0 2px;
+  font-size: 11px;
 }
 
 .flagged-panel {
@@ -417,7 +395,7 @@ input {
   gap: 8px;
   color: #536058;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
@@ -436,7 +414,7 @@ input {
 }
 
 .flagged-panel li b {
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .negative {
@@ -482,7 +460,7 @@ input {
 .wedge-number {
   color: var(--green);
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -553,7 +531,7 @@ input {
 
 .step-card .eyebrow {
   margin-bottom: 7px;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .step-card h3 {
@@ -594,7 +572,7 @@ input {
   border-top: 1px solid #edf0ee;
   color: #87938c;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   letter-spacing: 0.04em;
 }
 
@@ -630,7 +608,7 @@ input {
 
 .wedge-number {
   color: #89968e;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .wedge-title {
@@ -767,7 +745,7 @@ input {
   margin: 0 0 11px;
   color: #77847c;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
 }
@@ -782,14 +760,14 @@ input {
 .deployment-spec dt {
   color: #929d96;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .deployment-spec dd {
   margin: 0;
   color: #3e4942;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .benchmark-cards {
@@ -820,7 +798,7 @@ input {
   min-height: 18px;
   padding: 0 6px;
   background: #f7f8f6;
-  font-size: 7px;
+  font-size: 11px;
 }
 
 .progress-pill i {
@@ -831,13 +809,13 @@ input {
   margin: 11px 0 0;
   color: #8b968f;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.02em;
 }
 
 .benchmark-card > p:not(.benchmark-meta) {
   margin: 10px 0;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -852,13 +830,13 @@ input {
 .metric span {
   color: #8b968f;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 11px;
 }
 
 .metric b {
   color: #5c6860;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -909,7 +887,7 @@ input {
   display: grid;
   gap: 6px;
   color: #49554d;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .form-grid input {
@@ -921,7 +899,7 @@ input {
   outline: none;
   background: white;
   color: var(--foreground);
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .form-grid input::placeholder {
@@ -944,7 +922,7 @@ input {
 .cloud-field legend {
   margin-bottom: 7px;
   color: #49554d;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .cloud-field label {
@@ -968,7 +946,7 @@ input {
   border-radius: 6px;
   background: white;
   color: #46534b;
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .cloud-field input:checked + span {
@@ -992,7 +970,7 @@ input {
   margin: 10px 0 0;
   color: #849089;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 0.045em;
   line-height: 1.6;
 }
@@ -1028,7 +1006,7 @@ input {
 .footer-brand p {
   margin: 12px 0 0;
   color: #78847c;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 1.55;
 }
 
@@ -1043,13 +1021,13 @@ input {
   margin: 3px 0 2px;
   color: #8b968f;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
 }
 
 .footer-column a {
-  font-size: 10px;
+  font-size: 13px;
 }
 
 .footer-bottom {
@@ -1060,7 +1038,244 @@ input {
   border-top: 1px solid #dfe4e0;
   color: #89958d;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 8px;
+  font-size: 12px;
+}
+
+/* ─── Hero pretitle ──────────────────────────────────────── */
+
+.hero-pretitle {
+  margin: 0 0 18px;
+  color: var(--green);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ─── CLI free label ─────────────────────────────────────── */
+
+.cli-free-label {
+  margin: 0 0 14px;
+  color: rgba(255,255,255,0.4);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+/* ─── Step number ────────────────────────────────────────── */
+
+.step-num {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--green);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+/* ─── Stats Strip ────────────────────────────────────────── */
+
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.stats-strip article {
+  min-height: 110px;
+  padding: 28px clamp(40px, 5.5vw, 88px);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.stats-strip article:last-child {
+  border-right: 0;
+}
+
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.stat-ticker {
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 680;
+  letter-spacing: -0.04em;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+.stat-unit {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: -0.02em;
+}
+
+.stats-strip article p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+  max-width: 160px;
+}
+
+/* ─── MagicUI Terminal override ──────────────────────────── */
+
+.cli-terminal-wrap {
+  flex: 1;
+}
+
+.cli-magicui-terminal {
+  max-width: 100% !important;
+  background: #0d1a13 !important;
+  border-color: rgba(255,255,255,0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 24px 56px rgba(0,0,0,0.4) !important;
+  font-family: var(--font-geist-mono), monospace !important;
+}
+
+/* ─── CLI Section ─────────────────────────────────────────── */
+
+.cli-section {
+  padding: 110px 0 120px;
+  background: var(--deep-green);
+}
+
+.cli-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.cli-copy .eyebrow {
+  color: rgba(255,255,255,0.4);
+}
+
+.cli-copy .eyebrow > span {
+  background: var(--green);
+}
+
+.cli-copy h2 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 2.8vw, 34px);
+  font-weight: 630;
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+  color: #f0f4f1;
+}
+
+.cli-copy > p {
+  margin: 0 0 20px;
+  color: rgba(255,255,255,0.55);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.cli-copy .check-list li {
+  color: rgba(255,255,255,0.65);
+}
+
+.cli-copy .check-list li::before {
+  background: var(--green);
+  opacity: 0.9;
+}
+
+.cli-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.cli-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  background: rgba(255,255,255,0.05);
+}
+
+.cli-terminal {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: #0d1a13;
+  box-shadow: 0 24px 56px rgba(0,0,0,0.4);
+}
+
+.terminal-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 16px;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.terminal-topbar .preview-command {
+  color: rgba(255,255,255,0.3);
+}
+
+.terminal-body {
+  padding: 20px 20px 24px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.terminal-line {
+  display: flex;
+}
+
+.terminal-line.term-gap {
+  height: 10px;
+}
+
+.term-prompt {
+  color: var(--green);
+  user-select: none;
+  margin-right: 2px;
+}
+
+.term-cmd {
+  color: #e0ebe4;
+}
+
+.term-output {
+  color: rgba(255,255,255,0.35);
+  padding-left: 14px;
+}
+
+.term-warn {
+  color: #e8c768 !important;
+}
+
+.term-ok {
+  color: var(--green) !important;
+}
+
+@keyframes shiny-text {
+  0%, 90%, 100% { background-position: calc(-100% - var(--shiny-width)) 0; }
+  30%, 60% { background-position: calc(100% + var(--shiny-width)) 0; }
+}
+
+.animate-shiny-text {
+  animation: shiny-text 8s infinite;
 }
 
 @media (max-width: 760px) {
@@ -1078,13 +1293,13 @@ input {
   }
 
   .main-nav a {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .header-cta {
     min-height: 32px;
     padding: 0 10px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .hero {
@@ -1116,7 +1331,7 @@ input {
   }
 
   .flagged-panel li {
-    font-size: 8px;
+    font-size: 12px;
   }
 
   .benefit-strip article {
@@ -1175,7 +1390,7 @@ input {
   }
 
   .main-nav a {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .main-nav a:nth-child(2),
@@ -1186,7 +1401,7 @@ input {
   .header-cta {
     min-height: 31px;
     padding: 0 9px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .hero {
@@ -1231,7 +1446,7 @@ input {
 
   .preview-command {
     overflow: hidden;
-    font-size: 8px;
+    font-size: 12px;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -1239,7 +1454,7 @@ input {
   .status-pill {
     min-height: 18px;
     padding: 0 5px;
-    font-size: 6px;
+    font-size: 11px;
   }
 
   .preview-content {
@@ -1251,7 +1466,7 @@ input {
   }
 
   .chart-heading p {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .forecast-chart {
@@ -1271,12 +1486,12 @@ input {
 
   .flagged-panel li {
     justify-content: flex-start;
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .flagged-panel li b {
     margin-left: auto;
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .gpu-saved {
@@ -1310,7 +1525,7 @@ input {
   }
 
   .benefit-strip p {
-    font-size: 10px;
+    font-size: 13px;
   }
 
   .section-wrap,
@@ -1365,7 +1580,7 @@ input {
   }
 
   .wedge-number {
-    font-size: 7px;
+    font-size: 11px;
   }
 
   .wedge-title {
@@ -1408,7 +1623,7 @@ input {
   }
 
   .progress-pill {
-    font-size: 6px;
+    font-size: 11px;
   }
 
   .waitlist-inner {
@@ -1424,12 +1639,12 @@ input {
   }
 
   .form-grid label {
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .form-grid input {
     padding: 0 8px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .cloud-field {
@@ -1438,7 +1653,7 @@ input {
 
   .cloud-field label span {
     padding: 0 9px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .site-footer {
@@ -1456,7 +1671,38 @@ input {
 
   .footer-bottom {
     gap: 12px;
-    font-size: 7px;
+    font-size: 11px;
+  }
+
+  .stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-strip article {
+    min-height: 90px;
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stats-strip article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .stats-strip article:nth-child(n + 3) {
+    border-bottom: 0;
+  }
+
+  .cli-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .cli-section {
+    padding: 72px 0 80px;
+  }
+
+  .terminal-body {
+    font-size: 13px;
   }
 }
 
