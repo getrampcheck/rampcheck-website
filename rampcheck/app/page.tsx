@@ -81,12 +81,11 @@ function EditorialSections() {
     <div className="editorial" id="product">
       <section className="ed-band">
         <div className="ed-copy">
-          <p className="ed-kicker">01 / Automated data triage</p>
-          <h2>Stop cleaning robot training data by hand.</h2>
-          <p>Rampcheck finds suspicious demonstrations and organizes the evidence.</p>
-          <div className="ed-contrast">
-            <p><span>Manual work</span>Open traces. Inspect every anomaly. Hunt bad episodes.</p>
-            <p><span>Rampcheck</span>Auto-flag suspects. Return review-ready evidence.</p>
+          <h2>Find the robot demos worth reviewing.</h2>
+          <p>For robotics labs working with teleop demonstrations, joint trajectories, and synchronized sensor data. Run local checks on supported inputs and review suspicious episodes before training.</p>
+          <div className="ed-compare">
+            <p><span>Manual work</span>Inspect traces. Hunt bad episodes.</p>
+            <p className="is-product"><span>Rampcheck</span>Auto-flag and organize review candidates.</p>
           </div>
         </div>
         <figure className="ed-panel">
@@ -98,22 +97,18 @@ function EditorialSections() {
 
       <section className="ed-band tone-dark" id="approach">
         <div className="ed-copy">
-          <p className="ed-kicker">02 / Automation workflow</p>
-          <h2>Take the manual work out of the loop.</h2>
-          <p>Turn raw demonstrations into structured evidence and prioritized review candidates—with less engineering detective work.</p>
-          <div className="ed-contrast">
-            <p><span>Trace by trace</span>Trace by trace.</p>
-            <p><span>Automatically group anomalies</span>Automatically group anomalies.</p>
-          </div>
+          <h2>Stop chasing issues across every recording.</h2>
+          <p>Scan supported episodes and available signals locally. Surface anomalies, flag review candidates, and write structured findings to review.json—without silently deleting or repairing data.</p>
         </div>
         <figure className="ed-panel">
           <figcaption>Detect / triage / handoff</figcaption>
           <ol className="flow-steps">
-            <li><b>01 Input</b><i /></li>
-            <li><b>02 Check</b><i /></li>
-            <li><b>03 Triage</b><i /></li>
-            <li><b>04 Review</b><i /></li>
+            <li><b>01</b><strong>Input</strong><span>Raw robot demos</span></li>
+            <li><b>02</b><strong>Scan</strong><span>Find anomalies</span></li>
+            <li className="is-active"><b>03</b><strong>Triage</strong><span>Flag candidates</span></li>
+            <li className="is-light"><b>04</b><strong>Output</strong><span>review.json</span></li>
           </ol>
+          <p className="panel-foot">System output — Engineer reviews exceptions, not every recording.</p>
           <p className="ed-note">Current CLI provides diagnostics and review.json; automatic interventions are a target workflow.</p>
         </figure>
       </section>
@@ -122,16 +117,16 @@ function EditorialSections() {
         <div className="ed-copy">
           <p className="ed-kicker">03 / Model improvement intelligence</p>
           <h2>Finding the problem is just the start.</h2>
-          <p>Connect data failures to intervention decisions, controlled evaluation, and learning from actual training outcomes.</p>
-          <div className="ed-contrast">
-            <p><span>Diagnose in isolation</span>Diagnose in isolation.</p>
-            <p><span>Connect evidence to decisions</span>Connect evidence to decisions.</p>
-          </div>
+          <p>Today: inspect robot-data quality. Research direction: connect detected failures to intervention hypotheses, controlled evaluations, and measured training outcomes.</p>
         </div>
         <figure className="ed-panel">
           <figcaption>Measure / decide / verify / learn</figcaption>
           <LearningOrbit />
-          <p className="orbit-legend"><span>Measure</span><span>Decide</span><span>Verify</span><span>Learn</span></p>
+          <ul className="signal-list">
+            <li>Timestamp alignment</li>
+            <li>Joint jerk outliers</li>
+            <li>Teleop path detours</li>
+          </ul>
           <p className="ed-note">Full Measure → Decide → Verify → Learn loop advances through research and technical pilots.</p>
         </figure>
       </section>
@@ -140,11 +135,8 @@ function EditorialSections() {
         <div className="ed-copy">
           <p className="ed-kicker">04 / Lift predictor / research pilot</p>
           <h2>Know what is worth your next training run.</h2>
-          <p>Investigate predicted task-success lift for candidate data changes before spending compute on trial-and-error training.</p>
-          <div className="ed-contrast">
-            <p><span>Guess the best fix</span>Guess the best fix.</p>
-            <p><span>Estimate, then verify lift</span>Estimate, then verify lift.</p>
-          </div>
+          <p>In a research preview, compare candidate data interventions against task-success lift. The bars depict conceptual uncertainty ranges, not measured Rampcheck results.</p>
+          <p className="ed-compare is-product"><span>Research preview</span>Estimate which data change is worth testing.</p>
           <a className="button button-dark ed-cta" href="#waitlist">Book a Lift Predictor technical preview <ArrowIcon /></a>
         </div>
         <figure className="ed-panel">
@@ -162,8 +154,8 @@ function EditorialSections() {
       <section className="ed-band tone-mint flip" id="cli-entry">
         <div className="ed-copy">
           <p className="ed-kicker">05 / CLI / fastest entry point</p>
-          <h2>One command. Your first useful signal.</h2>
-          <p>The free local CLI is the entry point into Rampcheck—not the ceiling. Scan, inspect the terminal summary, and open structured JSON findings.</p>
+          <h2>From one command to a review artifact.</h2>
+          <p>Run rampcheck scan ./dataset locally. The CLI checks supported episode structures and available signals, then writes ./rampcheck/review.json for engineer review. No automatic deletion.</p>
           <div className="ed-contrast">
             <p><span>Onboard to a new platform</span>Onboard to a new platform.</p>
             <p><span>Scan locally in seconds</span>Scan locally in seconds.</p>
@@ -183,7 +175,7 @@ function EditorialSections() {
         <div className="ed-copy">
           <p className="ed-kicker">06 / Privacy & integrations</p>
           <h2>Keep your stack. Keep control of your data.</h2>
-          <p>Run diagnostics next to proprietary robot datasets, and export only the findings your team chooses to share.</p>
+          <p>Keep robot data within your environment while running available checks locally. Export review.json when you choose; SDK, API, and VPC integrations are future pilot paths.</p>
           <div className="ed-contrast">
             <p><span>Move sensitive raw data</span>Move sensitive raw data.</p>
             <p><span>Keep checks in your stack</span>Keep checks in your stack.</p>
@@ -226,8 +218,8 @@ function EditorialSections() {
       <section className="ed-band tone-mint flip">
         <div className="ed-copy">
           <p className="ed-kicker">08 / Two ways to get started</p>
-          <h2>Give your engineers their time back.</h2>
-          <p>Start with the self-serve diagnostic workflow or bring a model-specific improvement question to a technical preview.</p>
+          <h2>Stop hunting data issues. Get back to training.</h2>
+          <p>Run the local CLI now. For model-specific lift questions, book a research preview with Rampcheck.</p>
           <div className="ed-contrast">
             <p><span>Start with the CLI</span>Start with the CLI.</p>
             <p><span>Explore advanced intelligence</span>Explore advanced intelligence.</p>
@@ -545,33 +537,26 @@ export default function Home() {
 
           <div className="hero-stage">
             <div className="hero-terminal" id="cli" aria-label="Illustrative Rampcheck CLI session">
-              <div className="hero-terminal-bar">zsh&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;~/robot-demos</div>
+              <div className="hero-terminal-bar">
+                <span className="term-lights" aria-hidden="true"><i /><i /><i /></span>
+                zsh — rampcheck
+              </div>
               <div className="hero-terminal-body">
-                <p className="term-prompt">
-                  <span className="term-user">andon@workstation</span>
-                  <span className="term-path">&nbsp;~/robot-demos</span>
-                  <span className="term-pct">&nbsp;%</span>
-                  <span className="term-cmd">&nbsp;rampcheck scan ./dataset --report html</span>
-                </p>
-                <p className="term-kicker">Rampcheck&nbsp;&nbsp;/&nbsp;&nbsp;local dataset inspection</p>
-                <p className="term-rule" aria-hidden="true">-------------------------------------------------------</p>
-                <p className="term-ok-line">[ok]&nbsp;&nbsp;Schema validation</p>
-                <p className="term-ok-line">[ok]&nbsp;&nbsp;Episode metadata read</p>
-                <p className="term-ok-line">[ok]&nbsp;&nbsp;Signal checks completed</p>
-                <p className="term-label">REVIEW CANDIDATES</p>
-                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;312&nbsp;&nbsp;timestamp-alignment candidates</p>
-                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;186&nbsp;&nbsp;possible motion irregularities</p>
-                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;&nbsp;74&nbsp;&nbsp;possible duplicate episodes</p>
-                <div className="term-file-rule" />
-                <p className="term-file-line"><span>Report</span>./rampcheck/summary.html</p>
-                <p className="term-file-line"><span>Manifest</span>./rampcheck/review.json</p>
+                <p className="term-cmd">$ rampcheck scan ./dataset</p>
+                <p className="term-dim">Reading local robotics episodes...</p>
+                <p className="term-dim">Validating episode structure...</p>
+                <p className="term-dim">Running available signal checks...</p>
+                <p className="term-ok-line">✓ Episode structure checked</p>
+                <p className="term-ok-line">✓ Signal checks completed</p>
+                <p className="term-warn-line">! Review candidates flagged</p>
+                <p className="term-file-line">↳ Review saved to ./rampcheck/review.json</p>
                 <p className="term-cursor-line">$ <span className="term-cursor" aria-hidden="true" /></p>
               </div>
             </div>
 
             <aside className="outcome-panel" aria-label="Illustrative prediction versus outcome">
               <h2>Prediction vs. outcome</h2>
-              <p>Task-success improvement across evaluation runs</p>
+              <p>Illustrative task-success lift across evaluation runs</p>
               <div className="outcome-kpis">
                 <div>
                   <span>Predicted lift</span>
@@ -584,7 +569,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="outcome-chart-head">
-                <h3>Model improvement over evaluation runs</h3>
+                <h3>Lift across evaluation checkpoints</h3>
                 <span>Lift (pp)</span>
               </div>
               <OutcomeChart />

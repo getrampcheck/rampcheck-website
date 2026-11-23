@@ -231,10 +231,32 @@ input {
   font-family: var(--font-plex-mono), ui-monospace, monospace;
 }
 
+.term-lights {
+  display: inline-flex;
+  gap: 7px;
+  margin-right: 12px;
+}
+
+.term-lights i {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #67d8ae;
+}
+
+.term-lights i:first-child { background: #ff6b6b; }
+.term-lights i:nth-child(2) { background: #f2ba59; }
+
+.term-dim {
+  margin: 8px 0 0;
+  color: #91a197;
+}
+
 .hero-terminal-bar {
   display: flex;
   align-items: center;
-  height: 51px;
+  justify-content: center;
+  height: 58px;
   padding: 0 27px;
   border-bottom: 1px solid #344039;
   border-radius: 12px 12px 0 0;
@@ -570,6 +592,86 @@ input {
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.ed-compare {
+  display: grid;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.ed-compare p {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  align-items: center;
+  min-height: 54px;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 6px;
+  background: #e7f0e4;
+  font-size: 15px;
+}
+
+.ed-compare .is-product,
+.ed-compare.is-product {
+  background: #173126;
+  color: #f7f8f8;
+}
+
+.ed-compare span {
+  color: #5f6b64;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ed-compare .is-product span {
+  color: #8fe2bc;
+}
+
+.flow-steps li.is-active {
+  background: #67d8ae;
+  color: #102018;
+}
+
+.flow-steps li.is-light {
+  background: #fff;
+  color: #173126;
+}
+
+.flow-steps strong,
+.flow-steps span {
+  display: block;
+}
+
+.flow-steps b {
+  font-size: 22px;
+}
+
+.flow-steps strong {
+  margin-top: 18px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.flow-steps span {
+  margin-top: 28px;
+  font-size: 13px;
+}
+
+.signal-list {
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.signal-list li {
+  padding: 16px 0;
+  border-bottom: 1px solid #d7dde1;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .ed-cta {
