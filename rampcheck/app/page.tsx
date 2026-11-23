@@ -68,6 +68,222 @@ function CalendarIcon() {
   );
 }
 
+function ArrowIcon() {
+  return (
+    <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function EditorialSections() {
+  return (
+    <div className="editorial" id="product">
+      <section className="ed-band">
+        <div className="ed-copy">
+          <p className="ed-kicker">01 / Automated data triage</p>
+          <h2>Stop cleaning robot training data by hand.</h2>
+          <p>Rampcheck finds suspicious demonstrations and organizes the evidence.</p>
+          <div className="ed-contrast">
+            <p><span>Manual work</span>Open traces. Inspect every anomaly. Hunt bad episodes.</p>
+            <p><span>Rampcheck</span>Auto-flag suspects. Return review-ready evidence.</p>
+          </div>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Kinematics / workspace XY</figcaption>
+          <KinematicsPlot />
+          <p className="ed-note">Illustrative kinematics example. Reversible quarantine remains a target workflow.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band" id="approach">
+        <div className="ed-copy">
+          <p className="ed-kicker">02 / Automation workflow</p>
+          <h2>Take the manual work out of the loop.</h2>
+          <p>Turn raw demonstrations into structured evidence and prioritized review candidates—with less engineering detective work.</p>
+          <div className="ed-contrast">
+            <p><span>Trace by trace</span>Trace by trace.</p>
+            <p><span>Automatically group anomalies</span>Automatically group anomalies.</p>
+          </div>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Detect / triage / handoff</figcaption>
+          <ol className="flow-steps">
+            <li><b>01 Input</b><i /></li>
+            <li><b>02 Check</b><i /></li>
+            <li><b>03 Triage</b><i /></li>
+            <li><b>04 Review</b><i /></li>
+          </ol>
+          <p className="ed-note">Current CLI provides diagnostics and review.json; automatic interventions are a target workflow.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band">
+        <div className="ed-copy">
+          <p className="ed-kicker">03 / Model improvement intelligence</p>
+          <h2>Finding the problem is just the start.</h2>
+          <p>Connect data failures to intervention decisions, controlled evaluation, and learning from actual training outcomes.</p>
+          <div className="ed-contrast">
+            <p><span>Diagnose in isolation</span>Diagnose in isolation.</p>
+            <p><span>Connect evidence to decisions</span>Connect evidence to decisions.</p>
+          </div>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Measure / decide / verify / learn</figcaption>
+          <LearningOrbit />
+          <p className="orbit-legend"><span>Measure</span><span>Decide</span><span>Verify</span><span>Learn</span></p>
+          <p className="ed-note">Full Measure → Decide → Verify → Learn loop advances through research and technical pilots.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band">
+        <div className="ed-copy">
+          <p className="ed-kicker">04 / Lift predictor / research pilot</p>
+          <h2>Know what is worth your next training run.</h2>
+          <p>Investigate predicted task-success lift for candidate data changes before spending compute on trial-and-error training.</p>
+          <div className="ed-contrast">
+            <p><span>Guess the best fix</span>Guess the best fix.</p>
+            <p><span>Estimate, then verify lift</span>Estimate, then verify lift.</p>
+          </div>
+          <a className="button button-dark ed-cta" href="#waitlist">Book a Lift Predictor technical preview <ArrowIcon /></a>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Hypothetical lift by intervention</figcaption>
+          <ul className="lift-ranges">
+            <li><span>Trajectory repair</span><i style={{ ["--start" as string]: "46%", ["--width" as string]: "34%" }} /></li>
+            <li><span>Rare-case replay</span><i style={{ ["--start" as string]: "34%", ["--width" as string]: "30%" }} /></li>
+            <li><span>Exclusion review</span><i style={{ ["--start" as string]: "24%", ["--width" as string]: "26%" }} /></li>
+          </ul>
+          <p className="panel-foot">Illustrative / not measured</p>
+          <p className="ed-note">Illustrative predictions only. Lift Predictor is a research-stage technical preview.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band" id="cli-entry">
+        <div className="ed-copy">
+          <p className="ed-kicker">05 / CLI / fastest entry point</p>
+          <h2>One command. Your first useful signal.</h2>
+          <p>The free local CLI is the entry point into Rampcheck—not the ceiling. Scan, inspect the terminal summary, and open structured JSON findings.</p>
+          <div className="ed-contrast">
+            <p><span>Onboard to a new platform</span>Onboard to a new platform.</p>
+            <p><span>Scan locally in seconds</span>Scan locally in seconds.</p>
+          </div>
+          <a className="button button-dark ed-cta" href="#cli">Explore the free CLI <ArrowIcon /></a>
+        </div>
+        <figure className="ed-panel scan-panel">
+          <figcaption>Local scan / diagnostic output</figcaption>
+          <pre>{`$ rampcheck scan ./dataset\n\n`}<span className="ok">[ok] episode structure checked{"\n"}[ok] signal checks completed</span>{"\n"}<span className="warn">[!] review candidates flagged</span></pre>
+          <p className="scan-meta">Terminal: scan summary</p>
+          <p className="scan-json">JSON: ./rampcheck/review.json</p>
+          <p className="ed-note">v0.1 outputs: terminal summary and review.json. No HTML report or automatic deletions.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band" id="security">
+        <div className="ed-copy">
+          <p className="ed-kicker">06 / Privacy & integrations</p>
+          <h2>Keep your stack. Keep control of your data.</h2>
+          <p>Run diagnostics next to proprietary robot datasets, and export only the findings your team chooses to share.</p>
+          <div className="ed-contrast">
+            <p><span>Move sensitive raw data</span>Move sensitive raw data.</p>
+            <p><span>Keep checks in your stack</span>Keep checks in your stack.</p>
+          </div>
+          <a className="button button-dark ed-cta" href="#waitlist">Discuss an integration pilot <ArrowIcon /></a>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Customer-controlled data</figcaption>
+          <div className="boundary">
+            <span>Data</span>
+            <span>Local CLI</span>
+            <span>review.json</span>
+          </div>
+          <p className="panel-foot">No default raw-data upload</p>
+          <p className="ed-note">SDK / API / VPC integrations are future deployment pathways, not shipping features.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band">
+        <div className="ed-copy">
+          <p className="ed-kicker">07 / Product readiness</p>
+          <h2>Useful now. Ambitious by design.</h2>
+          <p>Clear maturity boundaries between local diagnostics, research-led model decisions, and future automated training-data operations.</p>
+          <div className="ed-contrast">
+            <p><span>Vague product roadmap</span>Vague product roadmap.</p>
+            <p><span>Explicit maturity boundaries</span>Explicit maturity boundaries.</p>
+          </div>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Capability maturity</figcaption>
+          <dl className="maturity">
+            <div><dt>01 / Local CLI</dt><dd>Diagnostics + JSON</dd></div>
+            <div><dt>02 / Research</dt><dd>Predictions + validation</dd></div>
+            <div><dt>03 / Roadmap</dt><dd>Automation + integrations</dd></div>
+          </dl>
+          <p className="ed-note">Not currently offering certified compliance, insurance underwriting, or physics-verified synthesis.</p>
+        </figure>
+      </section>
+
+      <section className="ed-band">
+        <div className="ed-copy">
+          <p className="ed-kicker">08 / Two ways to get started</p>
+          <h2>Give your engineers their time back.</h2>
+          <p>Start with the self-serve diagnostic workflow or bring a model-specific improvement question to a technical preview.</p>
+          <div className="ed-contrast">
+            <p><span>Start with the CLI</span>Start with the CLI.</p>
+            <p><span>Explore advanced intelligence</span>Explore advanced intelligence.</p>
+          </div>
+          <a className="button button-dark ed-cta" href="#waitlist">Book a technical preview <ArrowIcon /></a>
+        </div>
+        <figure className="ed-panel">
+          <figcaption>Choose your entry point</figcaption>
+          <div className="entry-cards">
+            <a href="#cli"><b>01 Free CLI</b><span>Immediate diagnostic results</span></a>
+            <a href="#waitlist"><b>02 Technical preview</b><span>A pilot for higher-value decisions</span></a>
+          </div>
+          <p className="ed-note">Choose the right entry path: fast CLI value or a deeper technical conversation.</p>
+        </figure>
+      </section>
+    </div>
+  );
+}
+
+function KinematicsPlot() {
+  return (
+    <svg className="kinematics" viewBox="0 0 560 330" role="img" aria-label="Reference path and an observed path with a flagged detour">
+      {Array.from({ length: 12 }, (_, index) => (
+        <line key={`v${index}`} x1={index * 50.8} y1="0" x2={index * 50.8} y2="326" stroke="#d7dee4" />
+      ))}
+      {Array.from({ length: 9 }, (_, index) => (
+        <line key={`h${index}`} x1="0" y1={index * 40.6} x2="560" y2={index * 40.6} stroke="#d7dee4" />
+      ))}
+      <path d="M28 250 C 120 230, 180 160, 250 120 S 400 70, 520 58" fill="none" stroke="#9aa6b2" strokeWidth="2" strokeDasharray="7 7" />
+      <path d="M28 250 C 110 236, 170 188, 230 168 C 280 150, 300 210, 340 188 S 430 90, 520 62" fill="none" stroke="#4149ec" strokeWidth="2.4" />
+      <circle cx="286" cy="196" r="28" fill="none" stroke="#ff9d74" strokeWidth="1.6" />
+      <circle cx="286" cy="196" r="4" fill="#ff9d74" />
+      <text x="18" y="322" fill="#5c6670" fontSize="11">Reference</text>
+      <text x="150" y="322" fill="#4149ec" fontSize="11">Observed</text>
+      <text x="390" y="322" fill="#ff9d74" fontSize="11">Flag / path detour</text>
+    </svg>
+  );
+}
+
+function LearningOrbit() {
+  return (
+    <svg className="orbit" viewBox="0 0 360 280" role="img" aria-label="A four-phase loop: measure, decide, verify, learn">
+      <circle cx="180" cy="132" r="46" fill="none" stroke="#4149ec" strokeWidth="1.6" />
+      <circle cx="180" cy="132" r="74" fill="rgba(65,73,236,0.08)" />
+      <path d="M180 58 A74 74 0 0 1 254 132" fill="none" stroke="#4149ec" strokeWidth="8" strokeLinecap="round" />
+      <path d="M254 132 A74 74 0 0 1 180 206" fill="none" stroke="#2ec4b6" strokeWidth="8" strokeLinecap="round" />
+      <path d="M180 206 A74 74 0 0 1 106 132" fill="none" stroke="#f08a5d" strokeWidth="8" strokeLinecap="round" />
+      <path d="M106 132 A74 74 0 0 1 180 58" fill="none" stroke="#b6e36b" strokeWidth="8" strokeLinecap="round" />
+      <circle cx="180" cy="58" r="6" fill="#b6e36b" />
+      <circle cx="254" cy="132" r="6" fill="#4149ec" />
+      <circle cx="180" cy="206" r="6" fill="#2ec4b6" />
+      <circle cx="106" cy="132" r="6" fill="#f08a5d" />
+    </svg>
+  );
+}
+
 function OutcomeChart() {
   const predicted = "M8 168 C42 164 58 150 86 138 C118 124 132 108 164 96 C198 82 214 70 248 58 C282 46 300 40 332 34";
   const realized = "M8 172 C42 168 58 158 86 148 C118 136 132 122 164 112 C198 100 214 90 248 78 C282 66 300 58 332 50";
@@ -383,7 +599,9 @@ export default function Home() {
           <p className="hero-disclaimer">Illustrative interface and model-evaluation data; not measured Rampcheck results.</p>
         </section>
 
-        <section className="stats-strip" aria-label="Rampcheck stats">
+        <EditorialSections />
+
+        <section className="stats-strip" hidden aria-label="Rampcheck stats">
           <BlurFade delay={0.05} inView>
             <article>
               <div className="stat-number">
