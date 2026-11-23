@@ -49,6 +49,51 @@ function BrandMark({ light = false }: { light?: boolean }) {
   );
 }
 
+function TerminalIcon() {
+  return (
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect x="1.5" y="2.5" width="15" height="13" rx="2" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M4.5 7.2 7 9.2 4.5 11.2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.2 11.4h4.3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function CalendarIcon() {
+  return (
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <rect x="2.2" y="3.2" width="13.6" height="12.2" rx="1.6" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M2.2 7.1h13.6M6 2.2v2.4M12 2.2v2.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function OutcomeChart() {
+  const predicted = "M8 168 C42 164 58 150 86 138 C118 124 132 108 164 96 C198 82 214 70 248 58 C282 46 300 40 332 34";
+  const realized = "M8 172 C42 168 58 158 86 148 C118 136 132 122 164 112 C198 100 214 90 248 78 C282 66 300 58 332 50";
+  const band = `${predicted} L332 62 C300 70 282 78 248 90 C214 104 198 116 164 128 C132 142 118 152 86 162 C58 170 42 176 8 180 Z`;
+
+  return (
+    <svg className="outcome-chart" viewBox="0 0 408 210" role="img" aria-label="Predicted and realized lift rise across five evaluation checkpoints, with a prediction range around the predicted curve">
+      {[168, 136, 104, 72, 40, 8].map((y) => (
+        <line key={y} x1="28" y1={y} x2="388" y2={y} stroke="#e7ece8" strokeWidth="1" />
+      ))}
+      {[28, 100, 172, 244, 316, 388].map((x) => (
+        <line key={x} x1={x} y1="8" x2={x} y2="168" stroke="#e7ece8" strokeWidth="1" />
+      ))}
+      <path d={band} fill="rgba(56,141,186,0.16)" />
+      <path d={predicted} fill="none" stroke="#388dba" strokeWidth="2.4" strokeLinecap="round" />
+      <path d={realized} fill="none" stroke="#0eb483" strokeWidth="2.4" strokeLinecap="round" />
+      {["5", "4", "3", "2", "1", "0"].map((label, index) => (
+        <text key={label} x="4" y={12 + index * 32} fill="#89958c" fontSize="11">{label}</text>
+      ))}
+      {["0", "1", "2", "3", "4", "5"].map((label, index) => (
+        <text key={`x-${label}`} x={24 + index * 72} y="186" fill="#89958c" fontSize="11">{label}</text>
+      ))}
+    </svg>
+  );
+}
+
 
 function ForecastChart() {
   // 7 data points across 6 runs. x: 0..720, y: inverted (0=top)
@@ -253,39 +298,89 @@ export default function Home() {
           <span>Rampcheck</span>
         </a>
         <nav className="main-nav" aria-label="Main navigation">
-          <a href="#how-it-works">Diagnostic CLI</a>
           <a href="#product">Product</a>
-          <a href="#benchmarks">Benchmarks</a>
-          <a href="#waitlist">Waitlist</a>
+          <a href="#approach">Approach</a>
+          <a href="#security">Security</a>
+          <a href="#resources">Docs</a>
         </nav>
-        <a className="button button-dark header-cta" href="#waitlist">Join the waitlist</a>
+        <a className="button button-dark header-cta" href="#waitlist">Book a technical preview</a>
       </header>
 
       <main id="top">
         <section className="hero">
           <div className="hero-copy">
-            <BlurFade delay={0.05} inView>
-              <p className="hero-pretitle">Pre-training intelligence for robot learning</p>
-            </BlurFade>
-            <BlurFade delay={0.1} inView>
-              <h1>Know what your data will do<br className="desktop-break" /> before you train on it.</h1>
-            </BlurFade>
-            <BlurFade delay={0.2} inView>
-              <p className="hero-description">
-                Rampcheck predicts the lift of a candidate robot-learning dataset
-                before you spend a single GPU-hour — then cleans the trajectories,
-                fills the gaps, and keeps the receipts. All inside your VPC.
-              </p>
-            </BlurFade>
-            <BlurFade delay={0.3} inView>
-              <div className="hero-actions">
-                <a className="button button-dark" href="#waitlist">Join the waitlist</a>
-                <a className="button button-light" href="#how-it-works">Try the free diagnostic CLI</a>
-              </div>
-            </BlurFade>
-            <p className="hero-tags">FREE CLI FOR LEROBOT + MCAP  ·  ZERO DATA EGRESS  ·  AWS + AZURE</p>
+            <h1>Know what to train on next.</h1>
+            <p className="hero-description">
+              Run automated dataset checks from your terminal. Review the results locally.
+              <br />
+              Explore model-specific lift prediction through a technical pilot.
+            </p>
+            <div className="hero-actions">
+              <a className="button button-dark" href="#cli">
+                Explore the free CLI
+                <TerminalIcon />
+              </a>
+              <a className="button button-light" href="#waitlist">
+                Book a technical preview
+                <CalendarIcon />
+              </a>
+            </div>
           </div>
-          <LiftPreview />
+
+          <div className="hero-stage">
+            <div className="hero-terminal" id="cli" aria-label="Illustrative Rampcheck CLI session">
+              <div className="hero-terminal-bar">zsh&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;~/robot-demos</div>
+              <div className="hero-terminal-body">
+                <p className="term-prompt">
+                  <span className="term-user">andon@workstation</span>
+                  <span className="term-path">&nbsp;~/robot-demos</span>
+                  <span className="term-pct">&nbsp;%</span>
+                  <span className="term-cmd">&nbsp;rampcheck scan ./dataset --report html</span>
+                </p>
+                <p className="term-kicker">Rampcheck&nbsp;&nbsp;/&nbsp;&nbsp;local dataset inspection</p>
+                <p className="term-rule" aria-hidden="true">-------------------------------------------------------</p>
+                <p className="term-ok-line">[ok]&nbsp;&nbsp;Schema validation</p>
+                <p className="term-ok-line">[ok]&nbsp;&nbsp;Episode metadata read</p>
+                <p className="term-ok-line">[ok]&nbsp;&nbsp;Signal checks completed</p>
+                <p className="term-label">REVIEW CANDIDATES</p>
+                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;312&nbsp;&nbsp;timestamp-alignment candidates</p>
+                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;186&nbsp;&nbsp;possible motion irregularities</p>
+                <p className="term-warn-line">[!]&nbsp;&nbsp;&nbsp;&nbsp;74&nbsp;&nbsp;possible duplicate episodes</p>
+                <div className="term-file-rule" />
+                <p className="term-file-line"><span>Report</span>./rampcheck/summary.html</p>
+                <p className="term-file-line"><span>Manifest</span>./rampcheck/review.json</p>
+                <p className="term-cursor-line">$ <span className="term-cursor" aria-hidden="true" /></p>
+              </div>
+            </div>
+
+            <aside className="outcome-panel" aria-label="Illustrative prediction versus outcome">
+              <h2>Prediction vs. outcome</h2>
+              <p>Task-success improvement across evaluation runs</p>
+              <div className="outcome-kpis">
+                <div>
+                  <span>Predicted lift</span>
+                  <strong className="kpi-predicted">+4.1 pp</strong>
+                </div>
+                <div className="kpi-rule" aria-hidden="true" />
+                <div>
+                  <span>Realized lift</span>
+                  <strong className="kpi-realized">+3.7 pp</strong>
+                </div>
+              </div>
+              <div className="outcome-chart-head">
+                <h3>Model improvement over evaluation runs</h3>
+                <span>Lift (pp)</span>
+              </div>
+              <OutcomeChart />
+              <p className="outcome-axis">Evaluation checkpoint</p>
+              <div className="outcome-legend">
+                <span><i className="legend-swatch swatch-predicted" /> Predicted lift (pp)</span>
+                <span><i className="legend-swatch swatch-realized" /> Realized lift (pp)</span>
+                <span><i className="legend-swatch swatch-range" /> Prediction range</span>
+              </div>
+            </aside>
+          </div>
+          <p className="hero-disclaimer">Illustrative interface and model-evaluation data; not measured Rampcheck results.</p>
         </section>
 
         <section className="stats-strip" aria-label="Rampcheck stats">
@@ -325,7 +420,7 @@ export default function Home() {
           </BlurFade>
         </section>
 
-        <section className="steps-section section-wrap" id="how-it-works">
+        <section className="steps-section section-wrap" id="approach">
           <div className="section-intro">
             <h2>From raw logs to a decision in three steps</h2>
             <p>Rampcheck plugs into the pipeline you already run — SDK in CI, worker in your VPC, receipts in the portal.</p>
@@ -382,7 +477,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="benchmarks-section section-wrap" id="benchmarks">
+        <section className="benchmarks-section section-wrap" id="security">
           <div className="section-intro">
             <h2>Backtested where the field backtests.</h2>
             <p>We validate the predictor against completed training runs on public manipulation benchmarks — with injected detours, label mismatches, and synthetic slices — and report rank correlation per suite. No cherry-picked demos.</p>

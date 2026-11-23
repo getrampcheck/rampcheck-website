@@ -9,8 +9,8 @@ import "@testing-library/jest-dom";
 expect.extend(toHaveNoViolations);
 
 jest.mock("next/font/google", () => ({
-  Geist: () => ({ variable: "--font-geist-sans", className: "mock" }),
-  Geist_Mono: () => ({ variable: "--font-geist-mono", className: "mock-mono" }),
+  Inter: () => ({ variable: "--font-inter", className: "mock" }),
+  IBM_Plex_Mono: () => ({ variable: "--font-plex-mono", className: "mock-mono" }),
 }));
 
 jest.mock("motion/react", () => {
