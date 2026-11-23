@@ -96,7 +96,7 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band" id="approach">
+      <section className="ed-band tone-dark" id="approach">
         <div className="ed-copy">
           <p className="ed-kicker">02 / Automation workflow</p>
           <h2>Take the manual work out of the loop.</h2>
@@ -118,7 +118,7 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band">
+      <section className="ed-band tone-cool">
         <div className="ed-copy">
           <p className="ed-kicker">03 / Model improvement intelligence</p>
           <h2>Finding the problem is just the start.</h2>
@@ -159,7 +159,7 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band" id="cli-entry">
+      <section className="ed-band tone-mint flip" id="cli-entry">
         <div className="ed-copy">
           <p className="ed-kicker">05 / CLI / fastest entry point</p>
           <h2>One command. Your first useful signal.</h2>
@@ -179,7 +179,7 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band" id="security">
+      <section className="ed-band tone-dark" id="security">
         <div className="ed-copy">
           <p className="ed-kicker">06 / Privacy & integrations</p>
           <h2>Keep your stack. Keep control of your data.</h2>
@@ -223,7 +223,7 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band">
+      <section className="ed-band tone-mint flip">
         <div className="ed-copy">
           <p className="ed-kicker">08 / Two ways to get started</p>
           <h2>Give your engineers their time back.</h2>
