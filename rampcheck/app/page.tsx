@@ -126,21 +126,21 @@ function EditorialSections() {
           <ul className="lift-ranges">
             <li>
               <span>Trajectory repair</span>
-              <i style={{ ["--start" as string]: "58%", ["--width" as string]: "28%" }}><b style={{ ["--tick" as string]: "78%" }} /></i>
+              <i style={{ ["--start" as string]: "62%", ["--width" as string]: "30%" }}><b style={{ ["--tick" as string]: "82%" }} /></i>
             </li>
             <li>
               <span>Rare-case replay</span>
-              <i style={{ ["--start" as string]: "42%", ["--width" as string]: "28%" }}><b style={{ ["--tick" as string]: "62%" }} /></i>
+              <i style={{ ["--start" as string]: "38%", ["--width" as string]: "34%" }}><b style={{ ["--tick" as string]: "62%" }} /></i>
             </li>
             <li>
               <span>Exclusion review</span>
-              <i style={{ ["--start" as string]: "34%", ["--width" as string]: "22%" }}><b style={{ ["--tick" as string]: "46%" }} /></i>
+              <i style={{ ["--start" as string]: "24%", ["--width" as string]: "26%" }}><b style={{ ["--tick" as string]: "36%" }} /></i>
             </li>
           </ul>
           <div className="lift-axis" aria-hidden="true">
-            <span>−2</span><span>0</span><span>+2</span><span>+4</span><span>+6</span><span>+8</span>
+            <span>0</span><span>+2</span><span>+4</span><span>+6</span><span>+8</span>
           </div>
-          <p className="panel-foot"><span>Lift (pp)</span> Interval = uncertainty range · Tick = point estimate</p>
+          <p className="panel-foot"><span>Lift (pp)</span><span>Interval = uncertainty range</span><span>Tick = point estimate</span></p>
         </figure>
       </section>
 
