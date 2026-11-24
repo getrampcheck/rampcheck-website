@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <script
           dangerouslySetInnerHTML={{
-            __html: `if(window.location.hash){history.replaceState(null,"",window.location.pathname);window.scrollTo(0,0);}`,
+            __html: `if(window.location.hash){history.replaceState(null,"",window.location.pathname);}window.scrollTo(0,0);`,
           }}
         />
         {children}
