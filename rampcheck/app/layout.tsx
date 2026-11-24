@@ -30,7 +30,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${instrument.variable} ${spaceGrotesk.variable} ${plexMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if(window.location.hash){history.replaceState(null,"",window.location.pathname);window.scrollTo(0,0);}`,
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
