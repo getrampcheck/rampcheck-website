@@ -77,12 +77,14 @@ export default function HeroTimeline() {
 
       ctx.clearRect(0, 0, W, H);
 
-      // Row separator lines
+      // Row separator lines — fade from center
       ctx.setLineDash([4, 6]);
-      ctx.strokeStyle = "rgba(14,180,131,0.2)";
       ctx.lineWidth = 1;
       for (const ly of rowLines) {
         const y = offsetY + ly;
+        const distFromCenter = Math.abs(y - (offsetY + totalHeight / 2)) / (totalHeight / 2);
+        const fade = Math.max(0.1, 1 - distFromCenter * 0.9);
+        ctx.strokeStyle = `rgba(14,180,131,${0.2 * fade})`;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(W, y);
@@ -90,12 +92,21 @@ export default function HeroTimeline() {
       }
       ctx.setLineDash([]);
 
-      // Episode slices
+      // Episode slices — height and opacity shrink gently toward top/bottom
+      const centerY = offsetY + totalHeight / 2;
+      const halfH = totalHeight / 2;
       for (const s of slices) {
         const sx = (s.x / 100) * W;
-        const sy = offsetY + s.row * (rowHeight + rowGap) + (rowHeight - s.h) / 2;
-        ctx.fillStyle = s.color;
-        ctx.fillRect(sx - s.w / 2, sy, s.w, s.h);
+        const rowCenterY = offsetY + s.row * (rowHeight + rowGap) + rowHeight / 2;
+        const distFromCenter = Math.abs(rowCenterY - centerY) / halfH;
+        const fade = Math.max(0.15, 1 - distFromCenter * 0.85);
+        const scaledH = s.h * (0.4 + 0.6 * fade);
+        const sy = rowCenterY - scaledH / 2;
+        const a = (0.1 + Math.random() * 0.001) * fade;
+        ctx.fillStyle = s.flagged
+          ? `rgba(237,178,0,${a * 1.2})`
+          : `rgba(14,180,131,${a})`;
+        ctx.fillRect(sx - s.w / 2, sy, s.w, scaledH);
       }
 
       // 3 scanners — each covers 2 rows, different speeds & directions
@@ -125,20 +136,26 @@ export default function HeroTimeline() {
         ctx.arc(scanPx, yTop, 3.5, 0, Math.PI * 2);
         ctx.fill();
 
-        // Highlight slices in this scanner's row range
+        // Highlight slices in this scanner's row range — wide lingering glow
         for (const s of slices) {
           if (s.row < sc.rowStart || s.row > sc.rowEnd) continue;
           const sx = (s.x / 100) * W;
           const dist = Math.abs(sx - scanPx);
-          if (dist < 30) {
-            const alpha = 0.6 * (1 - dist / 30);
-            const sy = offsetY + s.row * (rowHeight + rowGap) + (rowHeight - s.h) / 2;
+          if (dist < 500) {
+            const alpha = dist < 50
+              ? 0.6 * (1 - dist / 50)
+              : 0.4 * (1 - (dist - 50) / 450);
+            const rowCenterY = offsetY + s.row * (rowHeight + rowGap) + rowHeight / 2;
+            const distFromCenter = Math.abs(rowCenterY - centerY) / halfH;
+            const vFade = Math.max(0.15, 1 - distFromCenter * 0.85);
+            const scaledH = s.h * (0.4 + 0.6 * vFade);
+            const sy = rowCenterY - scaledH / 2;
             if (s.flagged) {
-              ctx.fillStyle = `rgba(237,178,0,${alpha})`;
+              ctx.fillStyle = `rgba(237,178,0,${alpha * vFade})`;
             } else {
-              ctx.fillStyle = `rgba(14,180,131,${alpha * 0.6})`;
+              ctx.fillStyle = `rgba(14,180,131,${alpha * 0.6 * vFade})`;
             }
-            ctx.fillRect(sx - s.w / 2 - 1, sy - 1, s.w + 2, s.h + 2);
+            ctx.fillRect(sx - s.w / 2 - 1, sy - 1, s.w + 2, scaledH + 2);
           }
         }
 
