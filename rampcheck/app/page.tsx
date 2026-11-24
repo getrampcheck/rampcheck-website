@@ -38,6 +38,28 @@ function ArrowIcon() {
   );
 }
 
+import AnimatedTerminal from "./animated-terminal";
+import AnimatedLiftChart from "./lift-chart";
+import FaqSection from "./faq-section";
+import HeroTimeline from "./hero-timeline";
+import {
+  AnimatedKinematicsPlot,
+  AnimatedOutcomeChart,
+  AnimatedLearningLine,
+  AnimatedLiftRanges,
+} from "./animated-charts";
+
+const TERMINAL_LINES = [
+  { text: "$ rampcheck scan ./dataset", className: "term-cmd", speed: 45 },
+  { text: "Reading local robotics episodes...", className: "term-dim" },
+  { text: "Validating episode structure...", className: "term-dim" },
+  { text: "Running available signal checks...", className: "term-dim" },
+  { text: "✓ Episode structure checked", className: "term-ok-line" },
+  { text: "✓ Signal checks completed", className: "term-ok-line" },
+  { text: "! Review candidates flagged", className: "term-warn-line" },
+  { text: "↳ Review saved to ./rampcheck/review.json", className: "term-file-line" },
+];
+
 function ScanTranscript({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`scan-window${compact ? " is-compact" : ""}`} aria-label="Illustrative Rampcheck CLI session">
@@ -45,17 +67,7 @@ function ScanTranscript({ compact = false }: { compact?: boolean }) {
         <span className="term-lights" aria-hidden="true"><i /><i /><i /></span>
         zsh — rampcheck
       </div>
-      <div className="hero-terminal-body">
-        <p className="term-cmd">$ rampcheck scan ./dataset</p>
-        <p className="term-dim">Reading local robotics episodes...</p>
-        <p className="term-dim">Validating episode structure...</p>
-        <p className="term-dim">Running available signal checks...</p>
-        <p className="term-ok-line">✓ Episode structure checked</p>
-        <p className="term-ok-line">✓ Signal checks completed</p>
-        <p className="term-warn-line">! Review candidates flagged</p>
-        <p className="term-file-line">↳ Review saved to ./rampcheck/review.json</p>
-        <p className="term-cursor-line">$ <span className="term-cursor" aria-hidden="true" /></p>
-      </div>
+      <AnimatedTerminal lines={TERMINAL_LINES} />
     </div>
   );
 }
@@ -67,26 +79,44 @@ function EditorialSections() {
         <div className="ed-copy">
           <h2>Find the robot demos worth reviewing.</h2>
           <p>For robotics labs working with teleop demonstrations, joint trajectories, and synchronized sensor data. Run local checks on supported inputs and review suspicious episodes before training.</p>
+          <span className="copy-rule" aria-hidden="true" />
           <div className="ed-compare">
             <p><span>Manual work</span>Inspect traces. Hunt bad episodes.</p>
-            <p className="is-product"><span>Rampcheck</span>Auto-flag and organize review candidates.</p>
+            <p className="is-product"><span>Ramp check</span>Auto-flag and organize review candidates.</p>
           </div>
         </div>
-        <figure className="ed-panel plot-panel">
-          <figcaption>Workspace trajectory / reference vs observed</figcaption>
-          <KinematicsPlot />
-          <div className="plot-legend">
-            <span><i className="legend-dash" /> Reference</span>
-            <span><i className="legend-solid" /> Observed</span>
-            <span className="flag-pill">Flag / path detour</span>
+        <div className="signal-panel" style={{ display: "flex", flexDirection: "column" as const, gap: "112px" }}>
+          <div className="signal-card signal-card-main">
+            <div className="signal-card-head">
+              <span className="signal-card-title">Teleop path detours</span>
+              <span className="signal-card-label">Workspace XY</span>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="signal-chart" src="/signal-trajectory.svg" alt="XY trajectory showing reference path and observed detour" />
           </div>
-        </figure>
+          <div className="signal-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+            <div className="signal-card signal-card-sm">
+              <span className="signal-card-title">Joint jerk outliers</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="signal-chart" src="/signal-jerk.svg" alt="Jerk magnitude trace with threshold spike" />
+              <span className="signal-card-axis">Jerk magnitude · time →</span>
+            </div>
+            <div className="signal-card signal-card-sm">
+              <span className="signal-card-title">Timestamp alignment</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="signal-chart" src="/signal-sync.svg" alt="Joint vs camera time offset markers" />
+              <span className="signal-card-axis">Joint / Camera</span>
+            </div>
+          </div>
+          <p className="signal-disclaimer">Examples shown conceptually; checks depend on available channels.</p>
+        </div>
       </section>
 
       <section className="ed-band tone-dark" id="approach">
         <div className="ed-copy">
           <h2>Stop chasing issues across every recording.</h2>
           <p>Scan supported episodes and available signals locally. Surface anomalies, flag review candidates, and write structured findings to review.json—without silently deleting or repairing data.</p>
+          <span className="copy-rule" aria-hidden="true" />
         </div>
         <figure className="flow-panel">
           <ol className="flow-steps">
@@ -99,49 +129,20 @@ function EditorialSections() {
         </figure>
       </section>
 
-      <section className="ed-band tone-cool stack">
-        <div className="ed-copy wide">
-          <h2>Finding the problem is just the start.</h2>
-          <p>Today: inspect robot-data quality. Research direction: connect detected failures to intervention hypotheses, controlled evaluations, and measured training outcomes.</p>
-        </div>
-        <div className="split-visual">
-          <LearningLine />
-          <ul className="signal-list">
-            <li>Timestamp alignment</li>
-            <li>Joint jerk outliers</li>
-            <li>Teleop path detours</li>
-          </ul>
-        </div>
-      </section>
-
       <section className="ed-band" id="preview">
         <div className="ed-copy">
-          <h2>Know what is worth your next training run.</h2>
-          <p>In a research preview, compare candidate data interventions against task-success lift. The bars depict conceptual uncertainty ranges, not measured Rampcheck results.</p>
-          <p className="ed-compare is-product"><span>Research preview</span>Estimate which data change is worth testing.</p>
+          <h2>Which data change is worth testing next?</h2>
+          <p>In a model-specific research preview, compare estimated task-success lift across candidate data interventions, then validate the ranking with held-out evaluations.</p>
+          <span className="copy-rule" aria-hidden="true" />
+          <p className="ed-lift-subhead">Build a ranked experiment plan.</p>
+          <p className="ed-lift-subdesc">Prioritize tests with estimated lift; trust results only after evaluation.</p>
           <a className="button button-dark ed-cta" href="#preview">Book a technical preview <CalendarIcon /></a>
         </div>
-        <figure className="ed-panel lift-panel">
-          <figcaption>Lift by intervention</figcaption>
-          <ul className="lift-ranges">
-            <li>
-              <span>Trajectory repair</span>
-              <i style={{ ["--start" as string]: "62%", ["--width" as string]: "30%" }}><b style={{ ["--tick" as string]: "82%" }} /></i>
-            </li>
-            <li>
-              <span>Rare-case replay</span>
-              <i style={{ ["--start" as string]: "38%", ["--width" as string]: "34%" }}><b style={{ ["--tick" as string]: "62%" }} /></i>
-            </li>
-            <li>
-              <span>Exclusion review</span>
-              <i style={{ ["--start" as string]: "24%", ["--width" as string]: "26%" }}><b style={{ ["--tick" as string]: "36%" }} /></i>
-            </li>
-          </ul>
-          <div className="lift-axis" aria-hidden="true">
-            <span>0</span><span>+2</span><span>+4</span><span>+6</span><span>+8</span>
-          </div>
-          <p className="panel-foot"><span>Lift (pp)</span><span>Interval = uncertainty range</span><span>Tick = point estimate</span></p>
-        </figure>
+        <AnimatedLiftChart rows={[
+          { label: "Trajectory repair", value: "+5.4 pp", rangeLeft: 426.58, rangeWidth: 117.3, tickLeft: 487.14, color: "#edb200", valueColor: "#edb200" },
+          { label: "Rare-case replay", value: "+3.8 pp", rangeLeft: 367.93, rangeWidth: 109.48, tickLeft: 424.58, color: "#8bcfe7", valueColor: "#2b7ea3" },
+          { label: "Timestamp alignment", value: "+2.6 pp", rangeLeft: 317.1, rangeWidth: 125.12, tickLeft: 377.66, color: "#49dda9", valueColor: "#49dda9" },
+        ]} />
       </section>
 
       <section className="ed-band tone-mint flip" id="cli-entry">
@@ -154,7 +155,7 @@ function EditorialSections() {
         <ScanTranscript compact />
       </section>
 
-      <section className="ed-band tone-dark" id="security">
+      <section className="ed-band tone-dark-deep" id="security">
         <div className="ed-copy">
           <h2>Keep your stack. Keep control of your data.</h2>
           <p>Keep robot data within your environment while running available checks locally. Export review.json when you choose; SDK, API, and VPC integrations are future pilot paths.</p>
@@ -189,6 +190,8 @@ function EditorialSections() {
           </ul>
         </div>
       </section>
+
+      <FaqSection />
 
       <section className="close-band" id="start">
         <h2>Stop hunting data issues. Get back to training.</h2>
@@ -293,6 +296,7 @@ export default function Home() {
 
       <main id="top">
         <section className="hero">
+          <HeroTimeline />
           <div className="hero-copy">
             <h1>Know what to train on next.</h1>
             <p className="hero-description">
@@ -300,16 +304,16 @@ export default function Home() {
               <br />
               Explore model-specific lift prediction through a technical pilot.
             </p>
-            <div className="hero-actions">
-              <a className="button button-dark" href="#cli">
-                Explore the free CLI
-                <TerminalIcon />
-              </a>
-              <a className="button button-light" href="#preview">
-                Book a technical preview
-                <CalendarIcon />
-              </a>
-            </div>
+          </div>
+          <div className="hero-actions">
+            <a className="button button-dark" href="#cli">
+              Explore the free CLI
+              <TerminalIcon />
+            </a>
+            <a className="button button-light" href="#preview">
+              Book a technical preview
+              <CalendarIcon />
+            </a>
           </div>
 
           <div className="hero-stage">
@@ -318,17 +322,7 @@ export default function Home() {
                 <span className="term-lights" aria-hidden="true"><i /><i /><i /></span>
                 zsh — rampcheck
               </div>
-              <div className="hero-terminal-body">
-                <p className="term-cmd">$ rampcheck scan ./dataset</p>
-                <p className="term-dim">Reading local robotics episodes...</p>
-                <p className="term-dim">Validating episode structure...</p>
-                <p className="term-dim">Running available signal checks...</p>
-                <p className="term-ok-line">✓ Episode structure checked</p>
-                <p className="term-ok-line">✓ Signal checks completed</p>
-                <p className="term-warn-line">! Review candidates flagged</p>
-                <p className="term-file-line">↳ Review saved to ./rampcheck/review.json</p>
-                <p className="term-cursor-line">$ <span className="term-cursor" aria-hidden="true" /></p>
-              </div>
+              <AnimatedTerminal lines={TERMINAL_LINES} />
             </div>
 
             <aside className="outcome-panel" aria-label="Illustrative prediction versus outcome">
@@ -349,7 +343,7 @@ export default function Home() {
                 <h3>Lift across evaluation checkpoints</h3>
                 <span>Lift (pp)</span>
               </div>
-              <OutcomeChart />
+              <AnimatedOutcomeChart />
               <p className="outcome-axis">Evaluation checkpoint</p>
               <div className="outcome-legend">
                 <span><i className="legend-swatch swatch-predicted" /> Predicted lift (pp)</span>
@@ -358,7 +352,6 @@ export default function Home() {
               </div>
             </aside>
           </div>
-          <p className="hero-disclaimer">Illustrative interface and model-evaluation data; not measured Rampcheck results.</p>
         </section>
 
         <EditorialSections />
@@ -388,8 +381,8 @@ export default function Home() {
           </nav>
           <nav aria-label="Start here">
             <h2>Start here</h2>
-            <a href="#cli">Explore free CLI</a>
-            <a href="#preview">Book a technical preview</a>
+            <a href="#cli">Run a local scan</a>
+            <a href="#preview">Book technical preview</a>
           </nav>
         </div>
         <div className="footer-bottom">
