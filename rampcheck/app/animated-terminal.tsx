@@ -15,6 +15,7 @@ interface TerminalLine {
  * The command line types out character by character; subsequent output lines
  * fade in sequentially to simulate real CLI output.
  *
+ * The container smoothly expands in height as new lines appear.
  * Animation starts once the component scrolls into view.
  */
 export default function AnimatedTerminal({
@@ -79,40 +80,48 @@ export default function AnimatedTerminal({
   }, [activeLine, typedChars, lines, linePause]);
 
   return (
-    <div ref={containerRef} className="hero-terminal-body">
-      {lines.map((line, i) => {
-        const isTyping = line.speed && line.speed > 0;
-        const isActive = i === activeLine;
-        const isComplete = i < activeLine;
-        const isVisible = isComplete || isActive;
+    <div
+      ref={containerRef}
+      className="hero-terminal-body"
+    >
+      <div style={{ paddingBottom: "8px" }}>
+        {lines.map((line, i) => {
+          const isTyping = line.speed && line.speed > 0;
+          const isActive = i === activeLine;
+          const isComplete = i < activeLine;
+          const isVisible = isComplete || isActive;
 
-        if (!isVisible) return null;
+          if (!isVisible) return null;
 
-        return (
+          return (
+            <p
+              key={i}
+              className={line.className}
+              style={{
+                opacity: isComplete || isActive ? 1 : 0,
+                transition: "opacity 0.25s ease",
+              }}
+            >
+              {isTyping && isActive ? line.text.slice(0, typedChars) : line.text}
+              {isActive && isTyping && showCursor && (
+                <span className="term-cursor" aria-hidden="true" />
+              )}
+            </p>
+          );
+        })}
+
+        {showCursor && (
           <p
-            key={i}
-            className={line.className}
+            className="term-cursor-line"
             style={{
-              opacity: isComplete ? 1 : isActive && !isTyping ? 1 : isActive ? 1 : 0,
-              transition: "opacity 0.25s ease",
+              visibility: activeLine >= 0 && activeLine < lines.length && lines[activeLine].speed && lines[activeLine].speed! > 0
+                ? "hidden" : "visible",
             }}
           >
-            {isTyping && isActive ? line.text.slice(0, typedChars) : line.text}
+            $ <span className="term-cursor" aria-hidden="true" />
           </p>
-        );
-      })}
-
-      {showCursor && (
-        <p
-          className="term-cursor-line"
-          style={{
-            opacity: activeLine >= lines.length ? 1 : 0,
-            transition: "opacity 0.25s ease",
-          }}
-        >
-          $ <span className="term-cursor" aria-hidden="true" />
-        </p>
-      )}
+        )}
+      </div>
     </div>
   );
 }

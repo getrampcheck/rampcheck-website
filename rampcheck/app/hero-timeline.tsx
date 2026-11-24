@@ -2,12 +2,6 @@
 
 import { useEffect, useRef } from "react";
 
-/**
- * Robotics-data timeline animation.
- * Renders rows of episode slices (vertical bars) with a scanning
- * timeline strip that sweeps left → right → left in a continuous loop.
- * Meant to sit behind hero copy at low opacity.
- */
 export default function HeroTimeline() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -20,71 +14,79 @@ export default function HeroTimeline() {
     let raf: number;
     const dpr = window.devicePixelRatio || 1;
 
-    function resize() {
-      if (!canvas) return;
-      const rect = canvas.getBoundingClientRect();
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    function getConfig() {
+      const vw = window.innerWidth;
+      if (vw <= 560) return { rows: 5, sliceCount: 25, rowHeight: 18, rowGap: 14, baseFade: 0.06, glowRange: 300, scannerWidth: 1 };
+      if (vw <= 760) return { rows: 5, sliceCount: 30, rowHeight: 22, rowGap: 14, baseFade: 0.07, glowRange: 350, scannerWidth: 1.2 };
+      if (vw <= 980) return { rows: 6, sliceCount: 40, rowHeight: 26, rowGap: 12, baseFade: 0.08, glowRange: 400, scannerWidth: 1.3 };
+      return { rows: 7, sliceCount: 50, rowHeight: 32, rowGap: 10, baseFade: 0.1, glowRange: 500, scannerWidth: 1.5 };
     }
 
-    resize();
-    window.addEventListener("resize", resize);
+    let cfg = getConfig();
 
-    // Episode slice config
-    const rows = 7;
-    const sliceCount = 50;
-    const rowHeight = 32;
-    const rowGap = 10;
-    const totalHeight = rows * rowHeight + (rows - 1) * rowGap;
-
-    // Pre-generate random slice widths and colors per row
-    const slices: { x: number; w: number; h: number; color: string; row: number; flagged: boolean }[] = [];
-    const colors = [
-      "rgba(14,180,131,0.35)",
-      "rgba(14,180,131,0.45)",
-      "rgba(14,180,131,0.25)",
-      "rgba(237,178,0,0.4)",
-      "rgba(14,180,131,0.5)",
-    ];
-
-    for (let r = 0; r < rows; r++) {
-      const count = sliceCount + Math.floor(Math.random() * 10);
-      for (let i = 0; i < count; i++) {
-        const w = 2 + Math.random() * 4;
-        const h = r >= 5 ? 4 + Math.random() * 6 : 10 + Math.random() * (rowHeight - 14);
-        const x = (i / count) * 100;
-        const colorIdx = Math.random() < 0.06 ? 3 : Math.floor(Math.random() * 3);
-        slices.push({ x, w, h, color: colors[colorIdx], row: r, flagged: Math.random() < 0.35 });
+    function buildSlices() {
+      const s: { x: number; w: number; h: number; row: number; flagged: boolean }[] = [];
+      for (let r = 0; r < cfg.rows; r++) {
+        const count = cfg.sliceCount + Math.floor(Math.random() * 10);
+        for (let i = 0; i < count; i++) {
+          const w = 2 + Math.random() * 3;
+          const h = r >= cfg.rows - 2 ? 3 + Math.random() * 5 : 6 + Math.random() * (cfg.rowHeight - 10);
+          s.push({ x: (i / count) * 100, w, h, row: r, flagged: Math.random() < 0.35 });
+        }
       }
+      return s;
     }
 
-    // Dashed row lines
-    const rowLines = Array.from({ length: rows + 1 }, (_, i) => i * (rowHeight + rowGap) - rowGap / 2);
+    let slices = buildSlices();
 
-    // Animation — 3 scanners starting at different positions & directions
+    function getRowLines() {
+      return Array.from({ length: cfg.rows + 1 }, (_, i) => i * (cfg.rowHeight + cfg.rowGap) - cfg.rowGap / 2);
+    }
+
+    let rowLines = getRowLines();
+
     const scanStates = [
       { x: 15, dir: 1 },
       { x: 70, dir: -1 },
       { x: 45, dir: 1 },
     ];
 
+    function resize() {
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const newCfg = getConfig();
+      if (newCfg.rows !== cfg.rows || newCfg.sliceCount !== cfg.sliceCount) {
+        cfg = newCfg;
+        slices = buildSlices();
+        rowLines = getRowLines();
+      } else {
+        cfg = newCfg;
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
     function draw() {
       if (!canvas || !ctx) return;
       const W = canvas.width / dpr;
       const H = canvas.height / dpr;
+      const totalHeight = cfg.rows * cfg.rowHeight + (cfg.rows - 1) * cfg.rowGap;
       const offsetY = (H - totalHeight) / 2;
 
       ctx.clearRect(0, 0, W, H);
 
-      // Row separator lines — fade from center
+      // Row separator lines
       ctx.setLineDash([4, 6]);
       ctx.lineWidth = 1;
       for (const ly of rowLines) {
         const y = offsetY + ly;
         const distFromCenter = Math.abs(y - (offsetY + totalHeight / 2)) / (totalHeight / 2);
         const fade = Math.max(0.1, 1 - distFromCenter * 0.9);
-        ctx.strokeStyle = `rgba(14,180,131,${0.2 * fade})`;
+        ctx.strokeStyle = `rgba(14,180,131,${0.15 * fade})`;
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(W, y);
@@ -92,81 +94,75 @@ export default function HeroTimeline() {
       }
       ctx.setLineDash([]);
 
-      // Episode slices — height and opacity shrink gently toward top/bottom
+      // Episode slices
       const centerY = offsetY + totalHeight / 2;
       const halfH = totalHeight / 2;
       for (const s of slices) {
         const sx = (s.x / 100) * W;
-        const rowCenterY = offsetY + s.row * (rowHeight + rowGap) + rowHeight / 2;
+        const rowCenterY = offsetY + s.row * (cfg.rowHeight + cfg.rowGap) + cfg.rowHeight / 2;
         const distFromCenter = Math.abs(rowCenterY - centerY) / halfH;
         const fade = Math.max(0.15, 1 - distFromCenter * 0.85);
         const scaledH = s.h * (0.4 + 0.6 * fade);
         const sy = rowCenterY - scaledH / 2;
-        const a = (0.1 + Math.random() * 0.001) * fade;
+        const a = (cfg.baseFade + Math.random() * 0.001) * fade;
         ctx.fillStyle = s.flagged
           ? `rgba(237,178,0,${a * 1.2})`
           : `rgba(14,180,131,${a})`;
         ctx.fillRect(sx - s.w / 2, sy, s.w, scaledH);
       }
 
-      // 3 scanners — each covers 2 rows, different speeds & directions
-      const scanners = [
-        { x: scanStates[0].x, rowStart: 0, rowEnd: 2, speed: 0.010 },
-        { x: scanStates[1].x, rowStart: 2, rowEnd: 4, speed: 0.016 },
-        { x: scanStates[2].x, rowStart: 4, rowEnd: 6, speed: 0.007 },
+      // Scanners
+      const scannerDefs = [
+        { rowStart: 0, rowEnd: Math.min(2, cfg.rows - 1), speed: 0.010 },
+        { rowStart: Math.min(2, cfg.rows - 1), rowEnd: Math.min(4, cfg.rows - 1), speed: 0.016 },
+        { rowStart: Math.min(4, cfg.rows - 1), rowEnd: cfg.rows - 1, speed: 0.007 },
       ];
 
-      for (let si = 0; si < scanners.length; si++) {
-        const sc = scanners[si];
+      for (let si = 0; si < scannerDefs.length; si++) {
+        const sc = { ...scannerDefs[si], x: scanStates[si].x };
         const scanPx = (sc.x / 100) * W;
-        const yTop = offsetY + sc.rowStart * (rowHeight + rowGap) - 8;
-        const yBot = offsetY + (sc.rowEnd + 1) * (rowHeight + rowGap) - rowGap + 8;
+        const yTop = offsetY + sc.rowStart * (cfg.rowHeight + cfg.rowGap) - 8;
+        const yBot = offsetY + (sc.rowEnd + 1) * (cfg.rowHeight + cfg.rowGap) - cfg.rowGap + 8;
 
-        // Vertical line
         ctx.strokeStyle = "rgba(180,180,180,0.4)";
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = cfg.scannerWidth;
         ctx.beginPath();
         ctx.moveTo(scanPx, yTop);
         ctx.lineTo(scanPx, yBot);
         ctx.stroke();
 
-        // Top dot
         ctx.fillStyle = "rgba(180,180,180,0.55)";
         ctx.beginPath();
-        ctx.arc(scanPx, yTop, 3.5, 0, Math.PI * 2);
+        ctx.arc(scanPx, yTop, 3, 0, Math.PI * 2);
         ctx.fill();
 
-        // Highlight slices in this scanner's row range — wide lingering glow
         for (const s of slices) {
           if (s.row < sc.rowStart || s.row > sc.rowEnd) continue;
           const sx = (s.x / 100) * W;
           const dist = Math.abs(sx - scanPx);
-          if (dist < 500) {
+          if (dist < cfg.glowRange) {
             const alpha = dist < 50
               ? 0.6 * (1 - dist / 50)
-              : 0.4 * (1 - (dist - 50) / 450);
-            const rowCenterY = offsetY + s.row * (rowHeight + rowGap) + rowHeight / 2;
+              : 0.4 * (1 - (dist - 50) / (cfg.glowRange - 50));
+            const rowCenterY = offsetY + s.row * (cfg.rowHeight + cfg.rowGap) + cfg.rowHeight / 2;
             const distFromCenter = Math.abs(rowCenterY - centerY) / halfH;
             const vFade = Math.max(0.15, 1 - distFromCenter * 0.85);
             const scaledH = s.h * (0.4 + 0.6 * vFade);
             const sy = rowCenterY - scaledH / 2;
-            if (s.flagged) {
-              ctx.fillStyle = `rgba(237,178,0,${alpha * vFade})`;
-            } else {
-              ctx.fillStyle = `rgba(14,180,131,${alpha * 0.6 * vFade})`;
-            }
+            ctx.fillStyle = s.flagged
+              ? `rgba(237,178,0,${alpha * vFade})`
+              : `rgba(14,180,131,${alpha * 0.6 * vFade})`;
             ctx.fillRect(sx - s.w / 2 - 1, sy - 1, s.w + 2, scaledH + 2);
           }
         }
 
-        // Move this scanner
-        scanStates[si].x += sc.speed * scanStates[si].dir;
+        scanStates[si].x += scannerDefs[si].speed * scanStates[si].dir;
         if (scanStates[si].x >= 100) { scanStates[si].x = 100; scanStates[si].dir = -1; }
         if (scanStates[si].x <= 0) { scanStates[si].x = 0; scanStates[si].dir = 1; }
       }
 
       // Top & bottom fade overlay
-      const fadeH = H * 0.15;
+      const fadeH = H * 0.18;
       const topGrad = ctx.createLinearGradient(0, 0, 0, fadeH);
       topGrad.addColorStop(0, "rgba(252,252,251,1)");
       topGrad.addColorStop(1, "rgba(252,252,251,0)");
@@ -190,11 +186,5 @@ export default function HeroTimeline() {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="hero-timeline"
-      aria-hidden="true"
-    />
-  );
+  return <canvas ref={canvasRef} className="hero-timeline" aria-hidden="true" />;
 }

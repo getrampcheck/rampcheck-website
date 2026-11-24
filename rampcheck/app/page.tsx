@@ -42,6 +42,7 @@ import AnimatedTerminal from "./animated-terminal";
 import AnimatedLiftChart from "./lift-chart";
 import FaqSection from "./faq-section";
 import HeroTimeline from "./hero-timeline";
+import MobileNav from "./mobile-nav";
 import {
   AnimatedKinematicsPlot,
   AnimatedOutcomeChart,
@@ -60,6 +61,17 @@ const TERMINAL_LINES = [
   { text: "↳ Review saved to ./rampcheck/review.json", className: "term-file-line" },
 ];
 
+const CLEAN_TERMINAL_LINES = [
+  { text: "$ rampcheck clean ./dataset --quarantine", className: "term-cmd", speed: 45 },
+  { text: "Loading review.json manifest...", className: "term-dim" },
+  { text: "Scanning 1,247 episodes (3 embodiments)...", className: "term-dim" },
+  { text: "✓ 38 operator detour loops quarantined", className: "term-ok-line" },
+  { text: "✓ 12 high-jerk spikes isolated", className: "term-ok-line" },
+  { text: "✓ 7 timestamp-drift episodes flagged", className: "term-warn-line" },
+  { text: "✓ Recovery demos preserved (19 near-miss)", className: "term-ok-line" },
+  { text: "↳ Clean manifest: ./rampcheck/clean.json", className: "term-file-line" },
+];
+
 function ScanTranscript({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`scan-window${compact ? " is-compact" : ""}`} aria-label="Illustrative Rampcheck CLI session">
@@ -67,7 +79,7 @@ function ScanTranscript({ compact = false }: { compact?: boolean }) {
         <span className="term-lights" aria-hidden="true"><i /><i /><i /></span>
         zsh — rampcheck
       </div>
-      <AnimatedTerminal lines={TERMINAL_LINES} />
+      <AnimatedTerminal lines={CLEAN_TERMINAL_LINES} />
     </div>
   );
 }
@@ -292,6 +304,7 @@ export default function Home() {
           <a href="#resources">Docs</a>
         </nav>
         <a className="button button-dark header-cta" href="#preview">Book a technical preview</a>
+        <MobileNav />
       </header>
 
       <main id="top">

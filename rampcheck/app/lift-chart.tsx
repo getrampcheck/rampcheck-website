@@ -66,24 +66,24 @@ export default function AnimatedLiftChart({ rows }: { rows: LiftRow[] }) {
                 animate={inView ? { width: `${(row.rangeWidth / 575) * 100}%` } : { width: 0 }}
                 transition={{ delay: 0.6 + i * 0.25, duration: 0.8, ease: "easeOut" as const }}
               />
-              {/* Tick mark — slides within bar bounds */}
+              {/* Tick mark — slides within range bar bounds (percentage-based) */}
               <motion.div
                 className="lcd-tick"
                 style={{ left: pct(row.tickLeft) }}
                 initial={{ opacity: 0 }}
                 animate={inView ? {
                   opacity: 1,
-                  x: [
-                    0,
-                    (row.rangeLeft + row.rangeWidth - 4) - row.tickLeft,
-                    0,
-                    (row.rangeLeft + 2) - row.tickLeft,
-                    0,
+                  left: [
+                    pct(row.tickLeft),
+                    pct(row.rangeLeft + row.rangeWidth - 4),
+                    pct(row.tickLeft),
+                    pct(row.rangeLeft + 2),
+                    pct(row.tickLeft),
                   ],
                 } : {}}
                 transition={{
                   opacity: { delay: 1.0 + i * 0.25, duration: 0.4, ease: "easeOut" as const },
-                  x: { delay: 1.8 + i * 0.3, duration: 6, repeat: Infinity, ease: "easeInOut" as const },
+                  left: { delay: 1.8 + i * 0.3, duration: 6, repeat: Infinity, ease: "easeInOut" as const },
                 }}
               >
                 <div className="lcd-tick-inner" />
